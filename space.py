@@ -27,6 +27,7 @@ red = pygame.Rect(70,140,90,80)
 yellow = pygame.Rect(1200,140,90,80)
 
 font = pygame.font.SysFont("bradleyhand",30)
+font2 = pygame.font.SysFont("bradleyhand",70)
 
 def redMove():
     if keys_pressed[pygame.K_w] and red.y> 0:
@@ -91,5 +92,23 @@ while True:
     for yb in yellowbullets:
         pygame.draw.rect(screen,"yellow",bullets)
         yb.x-=9
+        if red.colliderect(yb):
+            collide.play()
+            yellowbullets.remove(yb)
+            RHealth -= 1
+    if YHealth == 0:
+        screen.fill("blue")
+        RedWin = font2.render("Red Won!",True,"white")
+        screen.blit(RedWin,(685,300))
+        pygame.display.update()
+        pygame.time.wait(5000)
+        pygame.quit()
+    if RHealth == 0:
+        screen.fill("blue")
+        YellowWin = font2.render("Yellow Won!",True,"white")
+        screen.blit(YellowWin,(635,300))
+        pygame.display.update()
+        pygame.time.wait(5000)
+        pygame.quit()
 
     pygame.display.update()
